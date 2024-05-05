@@ -1,0 +1,50 @@
+<div style="background-color: #FFF8F8;">
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card " style="min-width: 26%;max-width:50%;padding: 1rem;background-color: #D9D9D9;">
+        <form  [formGroup]="loginForm"  (ngSubmit)="onSubmit()" class="w-100 h-30"  >
+            <div class="text-center">
+                <img src="assets\Image\Demo.png" class="img-fluid mb-2" style="max-height:130px;">
+            </div>
+            <hr class="mt-1 mb-2">
+            <h1 class="text-center mb-4" style="color: #d95b43;">Login</h1>
+            <div class="text-center mb-4"  style="color: black;" ><h3 >Please Enter Your Login Credentials</h3></div>
+            <hr class="mt-1 mb-2">
+            <!-- Email input with icon -->
+            <div class="form-group mb-4 mt-4">
+                <div *ngIf="issubmited && loginForm.controls['username'].errors" class="text-danger" style="width: 100%; text-align: left; margin-bottom: 5px;">
+                    * Required field
+                </div>
+                <div class="input-group">
+                    <input formControlName="username" [ngClass]="{'is-invalid': issubmited && loginForm.controls['username'].errors}" type="text"  class="form-control"  required id="InputEmail1" placeholder="Username" style="max-width: 90%;">
+                    <div class="input-group-prepend d-flex justify-content-center align-items-center flex-row">
+                        <span class="input-group-text" style="margin-left: -3px"><i class="fa fa-user" style="font-size: 1.50rem;"></i></span> <!-- Increased font size -->
+                    </div>
+                </div>
+            </div>
+            <!-- Password input with icon -->
+            <div class="form-group mb-4">
+                <div *ngIf="issubmited && loginForm.controls['password'].errors" class="text-danger" style="width: 100%; text-align: left; margin-bottom: 5px;">
+                    * Required field
+                </div>
+                <div class="input-group">
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" [ngClass]="{'is-invalid': issubmited && loginForm.controls['password'].errors}" class="form-control" id="InputPassword1" name="userpassword" required placeholder="Password" style="max-width: 90%;">
+                    <div class="input-group-append d-flex justify-content-center align-items-center flex-row">
+                      <span class="input-group-text" style=" cursor: pointer;margin-left: -7px;" (click)="togglePasswordVisibility()">
+                        <i class="fas fa-eye icon-large" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword" style="font-size: 1.50rem;"></i>
+                      </span>
+                    </div>
+                  </div>
+                  
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark" >Submit</button>
+            </div>
+             <a href="" class="text-dark mt-3" style="text-decoration: none;">Forgot Password</a>
+            
+             <div *ngIf="!isvaliduser" class="mt-4 alert alert-danger" role="alert">
+                Invalid User
+              </div>
+        </form>
+    </div>
+</div>
+</div>

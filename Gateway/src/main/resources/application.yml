@@ -1,0 +1,48 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: API-GATEWAY
+
+
+
+  cloud.gateway:
+    discovery:
+      locator:
+        enabled: true
+        lowerCaseServiceId: true
+    routes:
+      - id: users
+        uri: lb://USERSERVICE
+        predicates:
+          - Path=/user/**
+        filters:
+            - RewritePath=/user/(?<segment>.*), /$\{segment}
+      - id: Leave
+        uri: lb://Leave
+        predicates:
+          - Path=/Leave/**
+        filters:
+          - RewritePath=/Leave/(?<segment>.*), /$\{segment}
+    globalcors:
+      corsConfigurations:
+        '[/**]': # Apply global CORS configuration to all routes
+          allowedOrigins: "http://localhost:4200" # Client application URL
+          allowedMethods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          allowedHeaders:
+            - Content-Type
+            - Authorization
+          allowCredentials: true
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
